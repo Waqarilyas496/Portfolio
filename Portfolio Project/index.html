@@ -1,0 +1,439 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Waqar Developer Portfolio</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+
+html{
+scroll-behavior:smooth;
+font-family:Arial;
+}
+
+/* particles */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* hero */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+color:white;
+background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+/* navbar */
+
+.navbar{
+background:rgba(0,0,0,.8);
+}
+
+/* profile */
+
+.profile-img{
+width:180px;
+border-radius:50%;
+border:4px solid white;
+}
+
+/* skill bars */
+
+.skill-bar{
+height:10px;
+background:#ddd;
+border-radius:10px;
+overflow:hidden;
+}
+
+.skill-fill{
+height:100%;
+width:0%;
+background:#0d6efd;
+transition:2s;
+}
+
+/* project cards */
+
+.project-card{
+transition:.3s;
+}
+
+.project-card:hover{
+transform:translateY(-10px);
+}
+
+/* chatbot */
+
+.chat-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#0d6efd;
+color:white;
+border:none;
+padding:15px;
+border-radius:50%;
+font-size:20px;
+}
+
+.chatbox{
+position:fixed;
+bottom:90px;
+right:25px;
+width:280px;
+background:white;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,.3);
+display:none;
+flex-direction:column;
+}
+
+.chat-header{
+background:#0d6efd;
+color:white;
+padding:10px;
+}
+
+.chat-body{
+height:180px;
+overflow:auto;
+padding:10px;
+font-size:14px;
+}
+
+.chat-input{
+display:flex;
+}
+
+.chat-input input{
+flex:1;
+border:none;
+padding:8px;
+}
+
+.chat-input button{
+border:none;
+background:#0d6efd;
+color:white;
+padding:8px;
+}
+
+/* footer */
+
+footer{
+background:#111;
+color:white;
+padding:30px;
+text-align:center;
+}
+
+</style>
+<!-- Head section ke END mein (closing </style> ke baad) -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<nav class="navbar navbar-dark fixed-top">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold">Waqar Portfolio</a>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-md-4 text-center">
+<img src="Waqar1.jpeg" class="profile-img">
+</div>
+
+<div class="col-md-8">
+
+<h1 class="display-4 fw-bold">Waqar Ilyas</h1>
+
+<h3 class="typing"></h3>
+
+<p class="lead">Future Full Stack Developer</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-5">
+
+<div class="container">
+
+<h2 class="text-center mb-5">Skills</h2>
+
+<div class="mb-4">
+
+<p>HTML</p>
+
+<div class="skill-bar">
+<div class="skill-fill" data-width="90%"></div>
+</div>
+
+</div>
+
+<div class="mb-4">
+
+<p>CSS</p>
+
+<div class="skill-bar">
+<div class="skill-fill" data-width="85%"></div>
+</div>
+
+</div>
+
+<div class="mb-4">
+
+<p>JavaScript</p>
+
+<div class="skill-bar">
+<div class="skill-fill" data-width="75%"></div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-5 bg-light">
+
+<div class="container">
+
+<h2 class="text-center mb-5">GitHub Projects</h2>
+
+<div class="row" id="projects"></div>
+
+</div>
+
+</section>
+
+<!-- FORM SECTION (purana replace karein) -->
+<section class="py-5">
+<div class="container">
+<h2 class="text-center mb-4">Contact</h2>
+<div class="row justify-content-center">
+<div class="col-md-6">
+<form id="contact-form" class="p-4 border rounded">
+<div class="mb-3">
+<input type="text" class="form-control" id="user_name" placeholder="Your Name *" required>
+</div>
+<div class="mb-3">
+<input type="email" class="form-control" id="user_email" placeholder="your@email.com *" required>
+</div>
+<div class="mb-3">
+<textarea class="form-control" id="message" rows="4" placeholder="Your message..." required></textarea>
+</div>
+<button type="submit" class="btn btn-primary w-100" id="submit-btn">
+<i class="bi bi-send"></i> Send Message
+<span class="spinner-border spinner-border-sm d-none ms-2" id="spinner"></span>
+</button>
+<div id="form-message" class="mt-3"></div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<footer>
+
+<p>© 2026 Waqar Portfolio</p>
+
+</footer>
+
+<button class="chat-btn" onclick="toggleChat()">💬</button>
+
+<div class="chatbox" id="chatbox">
+
+<div class="chat-header">AI Assistant</div>
+
+<div class="chat-body" id="chat-body"></div>
+
+<div class="chat-input">
+
+<input id="chat-text">
+
+<button onclick="sendMsg()">Send</button>
+
+</div>
+
+</div>
+
+<script>
+// ===== ALL FEATURES + EMAILJS WORKING =====
+/* typing */
+new Typed(".typing",{
+strings:["Web Developer","Programmer","Tech Enthusiast"],
+typeSpeed:60,
+backSpeed:40,
+loop:true
+})
+
+/* particles */
+particlesJS("particles-js",{
+particles:{
+number:{value:70},
+size:{value:3},
+move:{speed:2},
+line_linked:{enable:true}
+}
+})
+
+/* skill bars */
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".skill-fill").forEach(bar=>{
+bar.style.width=bar.dataset.width
+})
+})
+
+/* projects */
+let projects=[
+{name:"Ecommerce Website",desc:"Online store project"},
+{name:"Student Portal",desc:"University dashboard"},
+{name:"Portfolio Site",desc:"Personal portfolio"}
+]
+
+let container=document.getElementById("projects")
+projects.forEach(p=>{
+container.innerHTML+=`
+<div class="col-md-4">
+<div class="card project-card p-3">
+<h5>${p.name}</h5>
+<p>${p.desc}</p>
+</div>
+</div>
+`
+})
+
+function sendMsg(){
+    let input = document.getElementById("chat-text");
+    let body = document.getElementById("chat-body");
+    let msg = input.value.toLowerCase().trim();
+    
+    if(!msg) return;
+    
+    // User message
+    body.innerHTML += `<div class="mb-2"><b>You:</b> ${input.value}</div>`;
+    input.value = "";
+    
+    // Smart AI Responses
+    let reply = "That's interesting! ";
+    
+    if(msg.includes("hello") || msg.includes("hi") || msg.includes("hey")) {
+        reply = "Hello! 👋 I'm Waqar's AI assistant. Ask me about his web development skills!";
+    }
+    else if(msg.includes("skill") || msg.includes("skills")) {
+        reply = "Waqar is skilled in:<br>🔥 HTML (90%)<br>🔥 CSS (85%)<br>🔥 JavaScript (75%)<br>He's building amazing projects!";
+    }
+    else if(msg.includes("project") || msg.includes("projects")) {
+        reply = "Waqar's projects:<br>🛒 Ecommerce Website<br>🎓 Student Portal<br>💼 Personal Portfolio<br>Check his GitHub!";
+    }
+    else if(msg.includes("html") || msg.includes("css") || msg.includes("js")) {
+        reply = "Great choice! Waqar masters HTML/CSS/JS and builds responsive websites. Need help with frontend?";
+    }
+    else if(msg.includes("hire") || msg.includes("job") || msg.includes("work")) {
+        reply = "Want to hire Waqar? He's available for freelance web development! 📧 Use the contact form above.";
+    }
+    else if(msg.includes("portfolio")) {
+        reply = "This is Waqar's portfolio! Scroll up to see his skills and projects. Looking good right? 😎";
+    }
+    else if(msg.includes("name") || msg.includes("who")) {
+        reply = "I'm Waqar's AI assistant! He is Waqar Ilyas, Future Full Stack Developer. Nice to meet you! 🙌";
+    }
+    else {
+        reply = "Cool! Waqar specializes in modern web development. Try asking about his skills, projects, or portfolio! 🚀";
+    }
+    
+    body.innerHTML += `<div class="mb-2"><b>AI:</b> ${reply}</div>`;
+    body.scrollTop = body.scrollHeight;
+}
+
+// ===== EMAILJS FORM WORKING =====
+emailjs.init("qswv4vegKYWcC2-aP"); // ← YE CHANGE KAREIN
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submit-btn');
+        const spinner = document.getElementById('spinner');
+        const messageDiv = document.getElementById('form-message');
+        
+        // Loading
+        btn.disabled = true;
+        if(spinner) spinner.classList.remove('d-none');
+        if(messageDiv) messageDiv.innerHTML = '';
+        
+        const templateParams = {
+            from_name: document.getElementById('user_name').value,
+            from_email: document.getElementById('user_email').value,
+            message: document.getElementById('message').value
+        };
+
+        emailjs.send('service_xgai6jc', 'template_bsdk05e', templateParams)
+        .then((result) => {
+            if(messageDiv) {
+                messageDiv.innerHTML = `
+                    <div class="alert alert-success mt-2">
+                        ✅ <strong>Thank you!</strong> Your message has been sent successfully!
+                        <br><small>I'll get back to you within 24 hours.</small>
+                    </div>`;
+            }
+            this.reset();
+        }, (error) => {
+            console.error('EmailJS Error:', error);
+            if(messageDiv) {
+                messageDiv.innerHTML = `
+                    <div class="alert alert-danger mt-2">
+                        ❌ <strong>Oops!</strong> Something went wrong. Please try again.
+                    </div>`;
+            }
+        })
+        .finally(() => {
+            btn.disabled = false;
+            if(spinner) spinner.classList.add('d-none');
+        });
+    });
+});
+</script>
+
+</body>
+
+</html>
+```
